@@ -10,9 +10,9 @@ RUN apk add --no-cache \
 WORKDIR /app
 COPY . .
 
-# ساخت و اجرای برنامه
+# ساخت و اجرای برنامه با تنظیمات دلخواه
 RUN go mod init apk-signer-bot && go mod tidy
-RUN go build -o bot main.go
+RUN go build -tags netgo -ldflags '-s -w' -o bot main.go
 
 ENV PORT=5000
 ENV KEYSTORE_PATH=/app/my.keystore
